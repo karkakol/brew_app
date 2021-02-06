@@ -1,6 +1,7 @@
 import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/shared/constans.dart';
+import 'package:brew_crew/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -15,6 +16,8 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
+  bool loading = false;
+
   //text field state
   String email = '';
   String password = '';
@@ -22,7 +25,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         //elevation: 0.0,
@@ -69,10 +72,16 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 20.0),
               RaisedButton(
                 onPressed: () async {
+                  setState(() {
+                    loading = true;
+                  });
                   if (_formKey.currentState.validate()) {
                     dynamic result  = await _auth.signInWithEmailAndPassword(email, password);
                     if(result == null){
-                      setState(() => error = 'your data is icorrect');
+                      setState(() {
+                        error = 'your data is icorrect';
+                        loading = false;
+                      });
                     }
                   }
                 },
