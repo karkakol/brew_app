@@ -72,10 +72,11 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 20.0),
               RaisedButton(
                 onPressed: () async {
-                  setState(() {
-                    loading = true;
-                  });
+
                   if (_formKey.currentState.validate()) {
+                    setState(() {
+                      loading = true;
+                    });
                     dynamic result  = await _auth.signInWithEmailAndPassword(email, password);
                     if(result == null){
                       setState(() {
