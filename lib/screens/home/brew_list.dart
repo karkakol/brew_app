@@ -14,9 +14,7 @@ class _BrewListState extends State<BrewList> {
     final brews = Provider.of<List<Brew>>(context);
 
     brews.forEach((element) {
-      print(element.name);
-      print(element.sugars);
-      print(element.strenght);
+
     });
 
     return ListView.builder(
