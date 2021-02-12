@@ -1,6 +1,7 @@
-import 'package:brew_crew/screens/authenticate/register.dart';
-import 'package:brew_crew/screens/authenticate/sign_in.dart';
+import 'package:brew_crew/screens/authenticate/register/register_coordinator.dart';
 import 'package:flutter/material.dart';
+
+import 'login/sign_in_coordinator.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -8,19 +9,11 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
-
-  bool showSignIn = false;
-
-  void toggleView(){
-    setState(() {
-      showSignIn = !showSignIn;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: showSignIn ? SignIn(toggleView: toggleView) : Register(toggleView: toggleView),
-    );
+    return MaterialApp(title: 'some text', initialRoute: '/', routes: {
+      '/': (context) => SignInCoordinator(),
+      '/register': (context) => RegisterCoordinator()
+    });
   }
 }

@@ -1,19 +1,8 @@
-class TheUser {
-
-  final String uid;
-
-  TheUser({this.uid});
-
-}
-
 class UserData {
-
   final String uid;
   final String name;
   final String sugars;
   final int strenght;
 
   UserData({this.uid, this.name, this.sugars, this.strenght});
-
-
 }
