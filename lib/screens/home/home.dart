@@ -15,45 +15,55 @@ class Home extends StatelessWidget {
       value: DatabaseService().brews,
       child: Scaffold(
         backgroundColor: Colors.brown[50],
-        appBar: AppBar(
-          title: Text('Brew Crew'),
-          backgroundColor: Colors.brown[400],
-          elevation: 0.0,
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.person),
-              onPressed: () async {
-                await _auth.signOut();
-              },
-              label: Text('logout'),
-            ),
-            FlatButton.icon(
-              onPressed: () => _showSettingsPanel(context),
-              icon: Icon(Icons.settings),
-              label: Text('settings'),
-            ),
-          ],
-        ),
-        body: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/coffee_bg.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: BrewList()),
+        appBar: _buildAppBar(context),
+        body: _buildBody(context),
       ),
     );
   }
 
   void _showSettingsPanel(BuildContext context) {
     showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-            child: SettingsForm(),
-          );
-        });
+      context: context,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+          child: SettingsForm(),
+        );
+      },
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text('Brew Crew'),
+      backgroundColor: Colors.brown[400],
+      elevation: 0.0,
+      actions: <Widget>[
+        FlatButton.icon(
+          icon: Icon(Icons.person),
+          onPressed: () async {
+            await _auth.signOut();
+          },
+          label: Text('logout'),
+        ),
+        FlatButton.icon(
+          onPressed: () => _showSettingsPanel(context),
+          icon: Icon(Icons.settings),
+          label: Text('settings'),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/coffee_bg.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: BrewList(),
+    );
   }
 }

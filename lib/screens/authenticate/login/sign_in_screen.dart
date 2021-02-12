@@ -1,5 +1,6 @@
 import 'package:brew_crew/screens/authenticate/login/sign_in_model.dart';
 import 'package:brew_crew/screens/authenticate/register/register_coordinator.dart';
+import 'package:brew_crew/shared/button.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/shared/constans.dart';
 import 'package:brew_crew/shared/loading.dart';
@@ -24,10 +25,12 @@ class SignInScreen extends StatelessWidget {
                   label: Text('register'),
                   onPressed: () {
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                RegisterCoordinator()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            RegisterCoordinator(),
+                      ),
+                    );
                   },
                 )
               ],
@@ -56,19 +59,7 @@ class SignInScreen extends StatelessWidget {
                       obscureText: true,
                     ),
                     SizedBox(height: 20.0),
-                    RaisedButton(
-                      onPressed: () {
-                        model.login();
-                      },
-                      color: Colors.pink[400],
-                      child: Text(
-                        'Sign in',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
+                    Button(onTap: model.login, text: 'login'),
                     Text(
                       model.error,
                       style: TextStyle(color: Colors.red, fontSize: 14.0),
