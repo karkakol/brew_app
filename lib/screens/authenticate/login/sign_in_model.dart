@@ -23,12 +23,10 @@ class SignInModel {
 SignInModel useSignInModel() {
   final injector = Injector.appInstance;
 
-
   final _email = useTextEditingController();
   final _password = useTextEditingController();
   final _loading = useState<bool>(false);
   final _error = useState<String>('');
-
 
   final AuthService _auth = injector.get<AuthService>();
 

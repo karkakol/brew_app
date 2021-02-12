@@ -18,10 +18,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   AuthService authService;
 
-  MyApp(){
+  MyApp() {
     final injector = Injector.appInstance;
     authService = injector.get<AuthService>();
   }
