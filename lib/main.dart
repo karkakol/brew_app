@@ -11,9 +11,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final injector = Injector.appInstance;
-  injector.registerSingleton<AuthService>(() => AuthService());
-  injector.registerSingleton<DatabaseService>(() => DatabaseService());
 
+  injector.registerSingleton<AuthService>(() => AuthService());
+  injector.registerSingleton<DatabaseService>(() => DatabaseService(
+    authService: injector.get<AuthService>()
+  ));
   runApp(MyApp());
 }
 

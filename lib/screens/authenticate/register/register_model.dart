@@ -1,4 +1,5 @@
 import 'package:brew_crew/services/auth.dart';
+import 'package:brew_crew/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:injector/injector.dart';
@@ -41,6 +42,9 @@ RegisterModel useRegisterModel() {
         if (result == null) {
           _error.value = 'your data is icorrect';
           _loading.value = false;
+        }
+        else{
+          await injector.get<DatabaseService>().setUserData();
         }
       }
     },

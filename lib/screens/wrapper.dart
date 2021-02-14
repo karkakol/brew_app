@@ -1,8 +1,8 @@
 import 'package:brew_crew/screens/authenticate/authentic.dart';
-import 'package:brew_crew/screens/home/home.dart';
 import 'package:brew_crew/user_id_model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'home/home_page/home.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -12,7 +12,7 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return Authenticate();
     } else {
-      return Home();
+      return HomePageScreen();
     }
   }
 }

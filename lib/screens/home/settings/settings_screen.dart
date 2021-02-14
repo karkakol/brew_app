@@ -4,6 +4,7 @@ import 'package:brew_crew/shared/loading.dart';
 import 'package:brew_crew/user_id_model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/shared/constans.dart';
+import 'package:injector/injector.dart';
 import 'package:provider/provider.dart';
 
 class SettingsForm extends StatefulWidget {
@@ -14,7 +15,7 @@ class SettingsForm extends StatefulWidget {
 class _SettingsFormState extends State<SettingsForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> sugars = ['0', '1', '2', '3', '4'];
-
+  final injector = Injector.appInstance;
   String _currentName;
   String _currentSugars;
   int _currentStrenght;
@@ -24,11 +25,10 @@ class _SettingsFormState extends State<SettingsForm> {
     final user = Provider.of<UserId>(context);
 
     return StreamBuilder<UserData>(
-        stream: DatabaseService(uid: user.uid).userDataStream,
+        stream: injector.get<DatabaseService>().userDataStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             UserData userData = snapshot.data;
-
             return Form(
               key: _formKey,
               child: Column(
@@ -79,7 +79,7 @@ class _SettingsFormState extends State<SettingsForm> {
                         Text('update', style: TextStyle(color: Colors.white)),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        await DatabaseService(uid: user.uid).updateUserData(
+                        await DatabaseService().updateUserData(
                           _currentSugars ?? userData.sugars,
                           _currentName ?? userData.name,
                           _currentStrenght ?? userData.strenght,
