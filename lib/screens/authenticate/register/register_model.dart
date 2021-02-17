@@ -36,7 +36,6 @@ RegisterModel useRegisterModel() {
     register: () async {
       if (_formKey.currentState.validate()) {
         _loading.value = true;
-        print('12344');
         final result = await _auth.registerWithEmailAndPassword(
             _email.value.text, _password.value.text);
         if (result == null) {

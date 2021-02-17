@@ -35,6 +35,7 @@ SignInModel useSignInModel() {
   return SignInModel(
     login: () async {
       if (_formKey.currentState.validate()) {
+        _loading.value = true;
         final result = await _auth.signInWithEmailAndPassword(
             _email.value.text, _password.value.text);
         if (result == null) {

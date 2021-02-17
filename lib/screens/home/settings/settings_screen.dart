@@ -1,99 +1,64 @@
-import 'package:brew_crew/models/user_data_model.dart';
-import 'package:brew_crew/services/database.dart';
+import 'package:brew_crew/screens/home/settings/settings_model.dart';
 import 'package:brew_crew/shared/loading.dart';
-import 'package:brew_crew/user_id_model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/shared/constans.dart';
-import 'package:injector/injector.dart';
-import 'package:provider/provider.dart';
 
-class SettingsForm extends StatefulWidget {
-  @override
-  _SettingsFormState createState() => _SettingsFormState();
-}
+class SettingsFormScreen extends StatelessWidget {
+  final SettingsModel model;
 
-class _SettingsFormState extends State<SettingsForm> {
-  final _formKey = GlobalKey<FormState>();
-  final List<String> sugars = ['0', '1', '2', '3', '4'];
-  final injector = Injector.appInstance;
-  String _currentName;
-  String _currentSugars;
-  int _currentStrenght;
+  SettingsFormScreen({this.model});
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserId>(context);
-
-    return StreamBuilder<UserData>(
-        stream: injector.get<DatabaseService>().userDataStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            UserData userData = snapshot.data;
-            return Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Text(
-                    'Update your brew settings.',
-                    style: TextStyle(fontSize: 18.0),
-                  ),
-                  SizedBox(height: 20.0),
-                  TextFormField(
-                    initialValue: userData.name,
-                    decoration: textInputDecoration,
-                    validator: (val) =>
-                        val.isEmpty ? 'Please enter a name' : null,
-                    onChanged: (val) => setState(() => _currentName = val),
-                  ),
-                  SizedBox(height: 20.0),
-                  //dropdown
-                  DropdownButtonFormField(
-                    decoration: textInputDecoration,
-                    value: _currentSugars ?? userData.sugars,
-                    items: sugars.map((sugar) {
-                      return DropdownMenuItem(
-                        value: sugar,
-                        child: Text('$sugar sugar(s)'),
-                      );
-                    }).toList(),
-                    onChanged: (val) => setState(() => _currentSugars = val),
-                  ),
-
-                  Slider(
-                    activeColor:
-                        Colors.brown[_currentStrenght ?? userData.strenght],
-                    inactiveColor:
-                        Colors.brown[_currentStrenght ?? userData.strenght],
-                    min: 100,
-                    max: 900,
-                    divisions: 8,
-                    onChanged: (val) =>
-                        setState(() => _currentStrenght = val.round()),
-                    value: (_currentStrenght ?? userData.strenght).toDouble(),
-                  ),
-
-                  //slider
-                  RaisedButton(
-                    color: Colors.pink[400],
-                    child:
-                        Text('update', style: TextStyle(color: Colors.white)),
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        await DatabaseService().updateUserData(
-                          _currentSugars ?? userData.sugars,
-                          _currentName ?? userData.name,
-                          _currentStrenght ?? userData.strenght,
-                        );
-                        Navigator.pop(context);
-                      }
-                    },
-                  )
-                ],
-              ),
-            );
-          } else {
-            return Loading();
-          }
-        });
+    return !model.isReady
+        ? Loading()
+        : Form(
+            key: model.formKey,
+            child: Column(
+              children: [
+                Text(
+                  'Update your brew settings.',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                SizedBox(height: 20.0),
+                TextFormField(
+                  controller: model.currentName,
+                  decoration: textInputDecoration,
+                  validator: (val) =>
+                      val.isEmpty ? 'Please enter a name' : null,
+                ),
+                SizedBox(height: 20.0),
+                DropdownButtonFormField(
+                  decoration: textInputDecoration,
+                  value: model.currentSugars,
+                  items: model.sugars.map((sugar) {
+                    return DropdownMenuItem(
+                      value: sugar,
+                      child: Text('$sugar sugar(s)'),
+                    );
+                  }).toList(),
+                  onChanged: (val) => model.setSugars(val),
+                ),
+                Slider(
+                  activeColor:
+                      Colors.brown[model.currentStrenght],
+                  inactiveColor:
+                      Colors.brown[model.currentStrenght],
+                  min: 100,
+                  max: 900,
+                  divisions: 8,
+                  onChanged: (val) => model.setStrenght(val.round()),
+                  value: model.currentStrenght.toDouble(),
+                ),
+                RaisedButton(
+                  color: Colors.pink[400],
+                  child: Text('update', style: TextStyle(color: Colors.white)),
+                  onPressed: () async {
+                    model.updateSettings();
+                  },
+                )
+              ],
+            ),
+          );
   }
 }

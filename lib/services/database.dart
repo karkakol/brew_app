@@ -11,7 +11,6 @@ class DatabaseService {
 
   DatabaseService({this.authService});
 
-
   final CollectionReference brewCollection =
       FirebaseFirestore.instance.collection('brews');
 
@@ -24,7 +23,6 @@ class DatabaseService {
   }
 
   Future setUserData() async {
-    print('                             ${authService.userData}');
     return await brewCollection.doc(authService.userData.uid).set({
       'sugars': '0',
       'name': '${authService.userData.email}',
@@ -57,6 +55,7 @@ class DatabaseService {
   }
 
   Stream<UserData> get userDataStream {
+    //print(brewCollection.doc(authService.userData.uid).snapshots().map(_userDataFromSnapshot));
     return brewCollection.doc(authService.userData.uid).snapshots().map(_userDataFromSnapshot);
   }
 }

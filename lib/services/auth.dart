@@ -11,9 +11,8 @@ class AuthService {
     try {
       UserCredential result =
           await auth.signInWithEmailAndPassword(email: email, password: pass);
-      User user = result.user;
-
-      return userFromFirebaseUser(user);
+      userData = result.user;
+      return userFromFirebaseUser(userData);
     } catch (e) {
       throw Exception();
     }
@@ -23,10 +22,9 @@ class AuthService {
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
           email: email, password: pass);
-      User user = result.user;
       userData = result.user;
 
-      return userFromFirebaseUser(user);
+      return userFromFirebaseUser(userData);
     } catch (e) {
       throw Exception();
     }

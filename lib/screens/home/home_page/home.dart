@@ -1,4 +1,4 @@
-import 'file:///C:/Dane/Projekty/brew_crew/lib/screens/home/settings/settings_screen.dart';
+import 'package:brew_crew/screens/home/settings/settings_coordinator.dart';
 import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/services/database.dart';
@@ -28,7 +28,7 @@ class HomePageScreen extends StatelessWidget {
       builder: (context) {
         return Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-          child: SettingsForm(),
+          child: SettingsCoordinator(),
         );
       },
     );
