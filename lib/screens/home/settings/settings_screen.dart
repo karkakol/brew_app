@@ -57,7 +57,7 @@ class SettingsFormScreen extends StatelessWidget {
                   color: Colors.pink[400],
                   child: Text('update', style: TextStyle(color: Colors.white)),
                   onPressed: () async {
-                    model.updateSettings();
+                    model.updateSettings(context);
                   },
                 )
               ],

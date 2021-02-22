@@ -53,14 +53,14 @@ SettingsModel useSetSettings(BuildContext context) {
   _isReady.value = true;
   return SettingsModel(
     updateSettings: (BuildContext context) async {
-      if (_formKey.currentState.validate()) {
+      print('wielka kupppaaaa');
         await injector.get<DatabaseService>().updateUserData(
               _currentSugars.value,
               _currentName.text,
               _currentStrenght.value,
             );
         Navigator.pop(context);
-      }
+
     },
     currentName: _currentName,
     currentStrenght: _currentStrenght.value,
