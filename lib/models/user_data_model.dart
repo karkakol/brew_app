@@ -5,4 +5,5 @@ class UserData {
   final int strenght;
 
   UserData({this.uid, this.name, this.sugars, this.strenght});
+
 }

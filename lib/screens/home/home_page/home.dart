@@ -18,16 +18,19 @@ class HomePageScreen extends StatelessWidget {
         backgroundColor: Colors.brown[50],
         appBar: _buildAppBar(context),
         body: _buildBody(context),
+        resizeToAvoidBottomInset: false,
       ),
     );
   }
 
   void _showSettingsPanel(BuildContext context) {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (context) {
         return Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+          height: 320,
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
           child: SettingsCoordinator(),
         );
       },

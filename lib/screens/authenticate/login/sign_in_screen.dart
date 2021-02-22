@@ -1,5 +1,6 @@
 import 'package:brew_crew/screens/authenticate/login/sign_in_model.dart';
 import 'package:brew_crew/screens/authenticate/register/register_coordinator.dart';
+import 'package:brew_crew/screens/navigator/slide_right_route.dart';
 import 'package:brew_crew/shared/button.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/shared/constans.dart';
@@ -26,10 +27,7 @@ class SignInScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            RegisterCoordinator(),
-                      ),
+                      SlideRightRoute(page: RegisterCoordinator()),
                     );
                   },
                 )

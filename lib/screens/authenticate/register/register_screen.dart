@@ -1,5 +1,6 @@
 import 'package:brew_crew/screens/authenticate/login/sign_in_coordinator.dart';
 import 'package:brew_crew/screens/authenticate/register/register_model.dart';
+import 'package:brew_crew/screens/navigator/slide_left_route.dart';
 import 'package:brew_crew/shared/loading.dart';
 import 'package:brew_crew/shared/button.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,7 @@ class RegisterScreen extends StatelessWidget {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => SignInCoordinator(),
-              ),
+              SlideLeftRoute(page: SignInCoordinator()),
             );
           },
         )
@@ -63,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
               validator: (val) => val.length < 6 ? 'Pass is to short' : null,
               obscureText: true,
             ),
-            Button(onTap:model.register,text: 'register'),
+            Button(onTap: model.register, text: 'register'),
             Text(
               model.error,
               style: TextStyle(color: Colors.red, fontSize: 14.0),

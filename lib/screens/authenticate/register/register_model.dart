@@ -41,8 +41,7 @@ RegisterModel useRegisterModel() {
         if (result == null) {
           _error.value = 'your data is icorrect';
           _loading.value = false;
-        }
-        else{
+        } else {
           await injector.get<DatabaseService>().setUserData();
         }
       }

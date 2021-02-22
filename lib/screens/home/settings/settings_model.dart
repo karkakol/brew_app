@@ -44,8 +44,11 @@ SettingsModel useSetSettings(BuildContext context) {
 
   final userData = snapshot?.data;
 
-  _currentSugars.value = userData.sugars;
-  _currentStrenght.value = userData.strenght;
+  useEffect(() {
+    _currentSugars.value = userData.sugars;
+    _currentStrenght.value = userData.strenght;
+    return null;
+  }, [userData]);
 
   _isReady.value = true;
   return SettingsModel(
@@ -64,14 +67,11 @@ SettingsModel useSetSettings(BuildContext context) {
     currentSugars: _currentSugars.value,
     isReady: _isReady.value,
     formKey: _formKey,
-    setStrenght: (val){
+    setStrenght: (val) {
       _currentStrenght.value = val;
-      print(_currentStrenght.value);
     },
     setSugars: (val) {
-
       _currentSugars.value = val;
-      print(_currentSugars.value);
     },
   );
 }

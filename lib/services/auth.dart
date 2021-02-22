@@ -1,7 +1,6 @@
 import 'package:brew_crew/user_id_model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -58,5 +57,4 @@ class AuthService {
   UserId userFromFirebaseUser(User user) {
     return user != null ? UserId(uid: user.uid) : null;
   }
-
 }

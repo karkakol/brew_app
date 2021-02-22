@@ -5,6 +5,7 @@ import 'package:brew_crew/shared/constans.dart';
 
 class SettingsFormScreen extends StatelessWidget {
   final SettingsModel model;
+  final focuseNode = FocusNode();
 
   SettingsFormScreen({this.model});
 
@@ -20,30 +21,32 @@ class SettingsFormScreen extends StatelessWidget {
                   'Update your brew settings.',
                   style: TextStyle(fontSize: 18.0),
                 ),
-                SizedBox(height: 20.0),
-                TextFormField(
-                  controller: model.currentName,
-                  decoration: textInputDecoration,
-                  validator: (val) =>
-                      val.isEmpty ? 'Please enter a name' : null,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: TextFormField(
+                    controller: model.currentName,
+                    decoration: textInputDecoration,
+                    validator: (val) =>
+                        val.isEmpty ? 'Please enter a name' : null,
+                  ),
                 ),
-                SizedBox(height: 20.0),
-                DropdownButtonFormField(
-                  decoration: textInputDecoration,
-                  value: model.currentSugars,
-                  items: model.sugars.map((sugar) {
-                    return DropdownMenuItem(
-                      value: sugar,
-                      child: Text('$sugar sugar(s)'),
-                    );
-                  }).toList(),
-                  onChanged: (val) => model.setSugars(val),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: DropdownButtonFormField(
+                    decoration: textInputDecoration,
+                    value: model.currentSugars,
+                    items: model.sugars.map((sugar) {
+                      return DropdownMenuItem(
+                        value: sugar,
+                        child: Text('$sugar sugar(s)'),
+                      );
+                    }).toList(),
+                    onChanged: (val) => model.setSugars(val),
+                  ),
                 ),
                 Slider(
-                  activeColor:
-                      Colors.brown[model.currentStrenght],
-                  inactiveColor:
-                      Colors.brown[model.currentStrenght],
+                  activeColor: Colors.brown[model.currentStrenght],
+                  inactiveColor: Colors.brown[model.currentStrenght],
                   min: 100,
                   max: 900,
                   divisions: 8,
