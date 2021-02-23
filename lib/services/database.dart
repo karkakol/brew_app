@@ -36,11 +36,7 @@ class DatabaseService {
   }
 
   List<Brew> _brewListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs
-        .map(
-          (val) => Brew().fromMap(val.data()),
-        )
-        .toList();
+    return snapshot.docs.map((val) => Brew().fromMap(val.data())).toList();
   }
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
