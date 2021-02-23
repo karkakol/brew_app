@@ -8,21 +8,21 @@ class SettingsModel {
   final List<String> sugars = ['0', '1', '2', '3', '4'];
   final TextEditingController currentName;
   final String currentSugars;
-  final int currentStrenght;
+  final int currentstrength;
   final Function updateSettings;
   final formKey;
   final bool isReady;
   final Function setSugars;
-  final Function setStrenght;
+  final Function setstrength;
 
   SettingsModel({
     this.currentName,
     this.currentSugars,
-    this.currentStrenght,
+    this.currentstrength,
     this.formKey,
     this.updateSettings,
     this.isReady,
-    this.setStrenght,
+    this.setstrength,
     this.setSugars,
   });
 }
@@ -36,7 +36,7 @@ SettingsModel useSetSettings(BuildContext context) {
   final AsyncSnapshot<UserData> snapshot =
       useStream(useMemoized(() => _database.userDataStream));
   final _currentSugars = useState();
-  final _currentStrenght = useState();
+  final _currentstrength = useState();
 
   if (snapshot.hasData == false) {
     return SettingsModel(isReady: false);
@@ -46,29 +46,27 @@ SettingsModel useSetSettings(BuildContext context) {
 
   useEffect(() {
     _currentSugars.value = userData.sugars;
-    _currentStrenght.value = userData.strenght;
+    _currentstrength.value = userData.strength;
     return null;
   }, [userData]);
 
   _isReady.value = true;
   return SettingsModel(
     updateSettings: (BuildContext context) async {
-      print('wielka kupppaaaa');
-        await injector.get<DatabaseService>().updateUserData(
-              _currentSugars.value,
-              _currentName.text,
-              _currentStrenght.value,
-            );
-        Navigator.pop(context);
-
+      await injector.get<DatabaseService>().updateUserData(
+            _currentSugars.value,
+            _currentName.text,
+            _currentstrength.value,
+          );
+      Navigator.pop(context);
     },
     currentName: _currentName,
-    currentStrenght: _currentStrenght.value,
+    currentstrength: _currentstrength.value,
     currentSugars: _currentSugars.value,
     isReady: _isReady.value,
     formKey: _formKey,
-    setStrenght: (val) {
-      _currentStrenght.value = val;
+    setstrength: (val) {
+      _currentstrength.value = val;
     },
     setSugars: (val) {
       _currentSugars.value = val;

@@ -11,43 +11,48 @@ class SignInModel {
   final TextEditingController password;
   final String error;
 
-  SignInModel(
-      {this.login,
-      this.formKey,
-      this.loading,
-      this.email,
-      this.password,
-      this.error});
+  SignInModel({
+    this.login,
+    this.formKey,
+    this.loading,
+    this.email,
+    this.password,
+    this.error,
+  });
 }
 
 SignInModel useSignInModel() {
   final injector = Injector.appInstance;
 
-  final _email = useTextEditingController();
-  final _password = useTextEditingController();
-  final _loading = useState<bool>(false);
-  final _error = useState<String>('');
+  final email = useTextEditingController();
+  final password = useTextEditingController();
+  final loading = useState<bool>(false);
+  final error = useState<String>('');
 
-  final AuthService _auth = injector.get<AuthService>();
+  final AuthService auth = injector.get<AuthService>();
 
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+
+  Future<void> login() async {
+    if (formKey.currentState.validate()) {
+      loading.value = true;
+      final result = await auth.signInWithEmailAndPassword(
+        email.value.text,
+        password.value.text,
+      );
+      if (result == null) {
+        error.value = 'wrong data';
+        loading.value = false;
+      }
+    }
+  }
 
   return SignInModel(
-    login: () async {
-      if (_formKey.currentState.validate()) {
-        _loading.value = true;
-        final result = await _auth.signInWithEmailAndPassword(
-            _email.value.text, _password.value.text);
-        if (result == null) {
-          _error.value = 'your data is icorrect';
-          _loading.value = false;
-        }
-      }
-    },
-    error: _error.value,
-    password: _password,
-    email: _email,
-    formKey: _formKey,
-    loading: _loading.value,
+    login: login,
+    error: error.value,
+    password: password,
+    email: email,
+    formKey: formKey,
+    loading: loading.value,
   );
 }

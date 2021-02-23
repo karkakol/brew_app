@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'home/home_page/home.dart';
 
-class Wrapper extends StatelessWidget {
+class AplicationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserId>(context);

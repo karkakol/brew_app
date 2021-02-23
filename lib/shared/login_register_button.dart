@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
+class LoginRegisterButton extends StatelessWidget {
   final Function onTap;
   final String text;
 
-  Button({this.onTap, this.text});
+  LoginRegisterButton({this.onTap, this.text});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,10 @@
 import 'package:brew_crew/screens/authenticate/login/sign_in_model.dart';
 import 'package:brew_crew/screens/authenticate/register/register_coordinator.dart';
 import 'package:brew_crew/screens/navigator/slide_right_route.dart';
-import 'package:brew_crew/shared/button.dart';
+import 'package:brew_crew/shared/login_register_button.dart';
 import 'package:flutter/material.dart';
-import 'package:brew_crew/shared/constans.dart';
-import 'package:brew_crew/shared/loading.dart';
+import 'package:brew_crew/shared/constant.dart';
+import 'package:brew_crew/shared/loading_widget.dart';
 
 class SignInScreen extends StatelessWidget {
   final SignInModel model;
@@ -14,58 +14,64 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return model.loading
-        ? Loading()
+        ? LoadingWidget()
         : Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.brown[400],
-              //elevation: 0.0,
-              title: Text('Sign in to Brew Crew'),
-              actions: [
-                FlatButton.icon(
-                  icon: Icon(Icons.person),
-                  label: Text('register'),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      SlideRightRoute(page: RegisterCoordinator()),
-                    );
-                  },
-                )
-              ],
-            ),
+            appBar: _buildAppBar(context),
             backgroundColor: Colors.brown[100],
-            body: Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-              child: Form(
-                key: model.formKey,
-                child: Column(
-                  children: [
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      controller: model.email,
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'Email'),
-                      validator: (val) => val.isEmpty ? 'Enter email' : null,
-                    ),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                      controller: model.password,
-                      decoration:
-                          textInputDecoration.copyWith(hintText: 'Password'),
-                      validator: (val) =>
-                          val.length < 6 ? 'Enter a 6+ chars long pass' : null,
-                      obscureText: true,
-                    ),
-                    SizedBox(height: 20.0),
-                    Button(onTap: model.login, text: 'login'),
-                    Text(
-                      model.error,
-                      style: TextStyle(color: Colors.red, fontSize: 14.0),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            body: _buildBody(),
           );
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.brown[400],
+      title: Text('Sign in to Brew Crew'),
+      actions: [
+        FlatButton.icon(
+          icon: Icon(Icons.person),
+          label: Text('register'),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              SlideRightRoute(page: RegisterCoordinator()),
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBody() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+      child: Form(
+        key: model.formKey,
+        child: Column(
+          children: [
+            SizedBox(height: 20.0),
+            TextFormField(
+              controller: model.email,
+              decoration: textInputDecoration.copyWith(hintText: 'Email'),
+              validator: (val) => val.isEmpty ? 'Enter email' : null,
+            ),
+            SizedBox(height: 20.0),
+            TextFormField(
+              controller: model.password,
+              decoration: textInputDecoration.copyWith(hintText: 'Password'),
+              validator: (val) => val.length < 6
+                  ? 'Password must be minimum 6 chars long'
+                  : null,
+              obscureText: true,
+            ),
+            SizedBox(height: 20.0),
+            LoginRegisterButton(onTap: model.login, text: 'login'),
+            Text(
+              model.error,
+              style: TextStyle(color: Colors.red, fontSize: 14.0),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

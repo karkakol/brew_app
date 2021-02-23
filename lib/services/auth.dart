@@ -4,54 +4,32 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  User userData;
+  User _userData;
 
-  Future signInWithEmailAndPassword(String email, String pass) async {
-    try {
-      UserCredential result =
-          await auth.signInWithEmailAndPassword(email: email, password: pass);
-      userData = result.user;
-      return userFromFirebaseUser(userData);
-    } catch (e) {
-      throw Exception();
-    }
+  get userData => _userData;
+
+  Future<UserId> signInWithEmailAndPassword(
+      String email, String password) async {
+    UserCredential result =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
+    _userData = result.user;
+    return userFromFirebaseUser(_userData);
   }
 
-  Future registerWithEmailAndPassword(String email, String pass) async {
-    try {
-      UserCredential result = await auth.createUserWithEmailAndPassword(
-          email: email, password: pass);
-      userData = result.user;
-
-      return userFromFirebaseUser(userData);
-    } catch (e) {
-      throw Exception();
-    }
+  Future<UserId> registerWithEmailAndPassword(
+      String email, String password) async {
+    UserCredential result = await auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    _userData = result.user;
+    return userFromFirebaseUser(_userData);
   }
 
-  Future signOut() async {
-    try {
-      return await auth.signOut();
-    } catch (e) {
-      throw Exception();
-    }
+  Future<void> signOut() async {
+    return await auth.signOut();
   }
 
-  Stream<UserId> get user {
-    return auth
-        .authStateChanges()
-        //.map((User user) => _userFromFirebaseUser(user));
-        .map(userFromFirebaseUser);
-  }
-
-  Future signInAnon() async {
-    try {
-      UserCredential userCredential = await auth.signInAnonymously();
-      User user = userCredential.user;
-      return userFromFirebaseUser(user);
-    } catch (e) {
-      throw Exception();
-    }
+  Stream<UserId> get userId {
+    return auth.authStateChanges().map(userFromFirebaseUser);
   }
 
   UserId userFromFirebaseUser(User user) {

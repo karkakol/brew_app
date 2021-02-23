@@ -13,9 +13,8 @@ void main() async {
   final injector = Injector.appInstance;
 
   injector.registerSingleton<AuthService>(() => AuthService());
-  injector.registerSingleton<DatabaseService>(() => DatabaseService(
-    authService: injector.get<AuthService>()
-  ));
+  injector.registerSingleton<DatabaseService>(
+      () => DatabaseService(authService: injector.get<AuthService>()));
   runApp(MyApp());
 }
 
@@ -30,9 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamProvider<UserId>.value(
-      value: authService.user,
+      value: authService.userId,
       child: MaterialApp(
-        home: Wrapper(),
+        home: AplicationWrapper(),
       ),
     );
   }

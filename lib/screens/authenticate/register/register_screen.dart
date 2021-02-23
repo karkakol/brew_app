@@ -1,10 +1,10 @@
 import 'package:brew_crew/screens/authenticate/login/sign_in_coordinator.dart';
 import 'package:brew_crew/screens/authenticate/register/register_model.dart';
 import 'package:brew_crew/screens/navigator/slide_left_route.dart';
-import 'package:brew_crew/shared/loading.dart';
-import 'package:brew_crew/shared/button.dart';
+import 'package:brew_crew/shared/loading_widget.dart';
+import 'package:brew_crew/shared/login_register_button.dart';
 import 'package:flutter/material.dart';
-import 'package:brew_crew/shared/constans.dart';
+import 'package:brew_crew/shared/constant.dart';
 
 class RegisterScreen extends StatelessWidget {
   final RegisterModel model;
@@ -14,7 +14,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return model.loading
-        ? Loading()
+        ? LoadingWidget()
         : Scaffold(
             appBar: _buildAppBar(context),
             backgroundColor: Colors.brown[100],
@@ -62,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
               validator: (val) => val.length < 6 ? 'Pass is to short' : null,
               obscureText: true,
             ),
-            Button(onTap: model.register, text: 'register'),
+            LoginRegisterButton(onTap: model.register, text: 'register'),
             Text(
               model.error,
               style: TextStyle(color: Colors.red, fontSize: 14.0),

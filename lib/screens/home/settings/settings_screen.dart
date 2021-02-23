@@ -1,7 +1,7 @@
 import 'package:brew_crew/screens/home/settings/settings_model.dart';
-import 'package:brew_crew/shared/loading.dart';
+import 'package:brew_crew/shared/loading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:brew_crew/shared/constans.dart';
+import 'package:brew_crew/shared/constant.dart';
 
 class SettingsFormScreen extends StatelessWidget {
   final SettingsModel model;
@@ -12,7 +12,7 @@ class SettingsFormScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return !model.isReady
-        ? Loading()
+        ? LoadingWidget()
         : Form(
             key: model.formKey,
             child: Column(
@@ -45,13 +45,13 @@ class SettingsFormScreen extends StatelessWidget {
                   ),
                 ),
                 Slider(
-                  activeColor: Colors.brown[model.currentStrenght],
-                  inactiveColor: Colors.brown[model.currentStrenght],
+                  activeColor: Colors.brown[model.currentstrength],
+                  inactiveColor: Colors.brown[model.currentstrength],
                   min: 100,
                   max: 900,
                   divisions: 8,
-                  onChanged: (val) => model.setStrenght(val.round()),
-                  value: model.currentStrenght.toDouble(),
+                  onChanged: (val) => model.setstrength(val.round()),
+                  value: model.currentstrength.toDouble(),
                 ),
                 RaisedButton(
                   color: Colors.pink[400],

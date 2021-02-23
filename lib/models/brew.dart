@@ -1,20 +1,22 @@
 class Brew {
   final String name;
   final String sugars;
-  final int strenght;
+  final int strength;
 
-  Brew({this.name, this.sugars, this.strenght});
-  toMap(){
+  Brew({this.name, this.sugars, this.strength});
+
+  Map<String, dynamic> toMap() {
     return {
       'sugars': this.sugars,
       'name': this.name,
-      'strenght': this.strenght,
+      'strength': this.strength,
     };
   }
-  Brew fromMap(Map<String, dynamic> map){
+
+  Brew fromMap(Map<String, dynamic> map) {
     return Brew(
         name: map['name'] ?? '',
-        strenght: map['strenght'] ?? 0,
+        strength: map['strength'] ?? 0,
         sugars: map['sugars'] ?? '0');
   }
 }

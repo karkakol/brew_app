@@ -1,6 +1,5 @@
 import 'package:brew_crew/screens/authenticate/register/register_coordinator.dart';
 import 'package:flutter/material.dart';
-
 import 'login/sign_in_coordinator.dart';
 
 class Authenticate extends StatefulWidget {
@@ -11,9 +10,13 @@ class Authenticate extends StatefulWidget {
 class _AuthenticateState extends State<Authenticate> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'some text', initialRoute: '/', routes: {
-      '/': (context) => SignInCoordinator(),
-      '/register': (context) => RegisterCoordinator()
-    });
+    return MaterialApp(
+      title: 'some text',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SignInCoordinator(),
+        '/register': (context) => RegisterCoordinator()
+      },
+    );
   }
 }

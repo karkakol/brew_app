@@ -12,44 +12,47 @@ class RegisterModel {
   final TextEditingController password;
   final String error;
 
-  RegisterModel(
-      {this.register,
-      this.formKey,
-      this.loading,
-      this.email,
-      this.password,
-      this.error});
+  RegisterModel({
+    this.register,
+    this.formKey,
+    this.loading,
+    this.email,
+    this.password,
+    this.error,
+  });
 }
 
 RegisterModel useRegisterModel() {
   final injector = Injector.appInstance;
 
-  final _email = useTextEditingController();
-  final _password = useTextEditingController();
-  final _loading = useState<bool>(false);
+  final email = useTextEditingController();
+  final password = useTextEditingController();
+  final loading = useState<bool>(false);
 
-  final _error = useState<String>('');
+  final error = useState<String>('');
   final AuthService _auth = injector.get<AuthService>();
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+
+  Future<void> register() async {
+    if (formKey.currentState.validate()) {
+      loading.value = true;
+      final result = await _auth.registerWithEmailAndPassword(
+          email.value.text, password.value.text);
+      if (result == null) {
+        error.value = "wrong data stupid mutherfucker";
+        loading.value = false;
+      } else {
+        await injector.get<DatabaseService>().initializeUser();
+      }
+    }
+  }
 
   return RegisterModel(
-    register: () async {
-      if (_formKey.currentState.validate()) {
-        _loading.value = true;
-        final result = await _auth.registerWithEmailAndPassword(
-            _email.value.text, _password.value.text);
-        if (result == null) {
-          _error.value = 'your data is icorrect';
-          _loading.value = false;
-        } else {
-          await injector.get<DatabaseService>().setUserData();
-        }
-      }
-    },
-    error: _error.value,
-    password: _password,
-    email: _email,
-    formKey: _formKey,
-    loading: _loading.value,
+    register: register,
+    error: error.value,
+    password: password,
+    email: email,
+    formKey: formKey,
+    loading: loading.value,
   );
 }
