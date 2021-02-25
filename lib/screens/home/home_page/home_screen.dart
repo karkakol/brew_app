@@ -1,19 +1,19 @@
-import 'package:brew_crew/screens/home/settings/settings_coordinator.dart';
-import 'package:brew_crew/services/auth.dart';
-import 'package:flutter/material.dart';
-import 'package:brew_crew/services/database.dart';
-import 'package:injector/injector.dart';
-import 'package:provider/provider.dart';
-import 'package:brew_crew/screens/home/brew_list.dart';
 import 'package:brew_crew/models/brew.dart';
+import 'package:brew_crew/screens/home/brew_list.dart';
+import 'package:brew_crew/screens/home/home_page/home_model.dart';
+import 'package:brew_crew/screens/home/settings/settings_coordinator.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class HomePageScreen extends StatelessWidget {
-  final injector = Injector.appInstance;
+class HomeScreen extends StatelessWidget {
+  final HomeModel model;
+
+  HomeScreen({this.model});
 
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Brew>>.value(
-      value: injector.get<DatabaseService>().brews,
+      value: model.brews,
       child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: _buildAppBar(context),
@@ -46,7 +46,7 @@ class HomePageScreen extends StatelessWidget {
         FlatButton.icon(
           icon: Icon(Icons.person),
           onPressed: () async {
-            await injector.get<AuthService>().signOut();
+            model.signOut;
           },
           label: Text('logout'),
         ),

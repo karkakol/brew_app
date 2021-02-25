@@ -13,7 +13,7 @@ class UserData {
     @required this.strength,
   });
 
-  UserData fromMap(Map<String, dynamic> map, String uid) {
+  static fromMap(Map<String, dynamic> map, String uid) {
     return UserData(
       uid: uid,
       name: map['name'],

@@ -6,7 +6,7 @@ import 'package:injector/injector.dart';
 
 class RegisterModel {
   final Function register;
-  final formKey;
+  final GlobalKey formKey;
   final bool loading;
   final TextEditingController email;
   final TextEditingController password;
@@ -38,6 +38,7 @@ RegisterModel useRegisterModel() {
       loading.value = true;
       final result = await _auth.registerWithEmailAndPassword(
           email.value.text, password.value.text);
+      print(result);
       if (result == null) {
         error.value = "wrong data stupid mutherfucker";
         loading.value = false;

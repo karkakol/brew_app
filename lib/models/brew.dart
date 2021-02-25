@@ -13,10 +13,11 @@ class Brew {
     };
   }
 
-  Brew fromMap(Map<String, dynamic> map) {
+  static fromMap(Map<String, dynamic> map) {
     return Brew(
-        name: map['name'] ?? '',
-        strength: map['strength'] ?? 0,
-        sugars: map['sugars'] ?? '0');
+      name: map['name'] ?? '',
+      strength: map['strength'] ?? 0,
+      sugars: map['sugars'] ?? '0',
+    );
   }
 }

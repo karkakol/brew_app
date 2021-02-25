@@ -1,4 +1,4 @@
-import 'package:brew_crew/screens/wrapper.dart';
+import 'package:brew_crew/screens/aplication_wrapper.dart';
 import 'package:brew_crew/services/auth.dart';
 import 'package:brew_crew/services/database.dart';
 import 'package:brew_crew/user_id_model/user.dart';
@@ -14,7 +14,8 @@ void main() async {
 
   injector.registerSingleton<AuthService>(() => AuthService());
   injector.registerSingleton<DatabaseService>(
-      () => DatabaseService(authService: injector.get<AuthService>()));
+    () => DatabaseService(authService: injector.get<AuthService>()),
+  );
   runApp(MyApp());
 }
 

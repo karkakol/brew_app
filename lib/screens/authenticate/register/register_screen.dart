@@ -1,10 +1,11 @@
 import 'package:brew_crew/screens/authenticate/login/sign_in_coordinator.dart';
 import 'package:brew_crew/screens/authenticate/register/register_model.dart';
 import 'package:brew_crew/screens/navigator/slide_left_route.dart';
+import 'package:brew_crew/shared/email_field.dart';
 import 'package:brew_crew/shared/loading_widget.dart';
-import 'package:brew_crew/shared/login_register_button.dart';
+import 'package:brew_crew/shared/prime_button.dart';
+import 'package:brew_crew/shared/password_field.dart';
 import 'package:flutter/material.dart';
-import 'package:brew_crew/shared/constant.dart';
 
 class RegisterScreen extends StatelessWidget {
   final RegisterModel model;
@@ -49,20 +50,9 @@ class RegisterScreen extends StatelessWidget {
         key: model.formKey,
         child: Column(
           children: [
-            SizedBox(height: 20.0),
-            TextFormField(
-              controller: model.email,
-              decoration: textInputDecoration.copyWith(hintText: 'Email'),
-              validator: (val) => val.isEmpty ? 'Enter email' : null,
-            ),
-            SizedBox(height: 20.0),
-            TextFormField(
-              controller: model.password,
-              decoration: textInputDecoration.copyWith(hintText: 'Password'),
-              validator: (val) => val.length < 6 ? 'Pass is to short' : null,
-              obscureText: true,
-            ),
-            LoginRegisterButton(onTap: model.register, text: 'register'),
+            EmailField(controller: model.email),
+            PasswordField(controller: model.password),
+            PrimeButton(onTap: model.register, text: 'register'),
             Text(
               model.error,
               style: TextStyle(color: Colors.red, fontSize: 14.0),

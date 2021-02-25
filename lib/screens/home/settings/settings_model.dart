@@ -10,7 +10,7 @@ class SettingsModel {
   final String currentSugars;
   final int currentstrength;
   final Function updateSettings;
-  final formKey;
+  final GlobalKey formKey;
   final bool isReady;
   final Function setSugars;
   final Function setstrength;
