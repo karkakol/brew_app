@@ -47,14 +47,14 @@ class RegisterScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
       child: Form(
-        key: model.formKey,
         child: Column(
           children: [
-            EmailField(controller: model.email),
-            PasswordField(controller: model.password),
+            EmailField(controller: model.email, emailError: model.emailError),
+            PasswordField(
+                controller: model.password, passwordError: model.passwordError),
             PrimeButton(onTap: model.register, text: 'register'),
             Text(
-              model.error,
+              model.error ?? '',
               style: TextStyle(color: Colors.red, fontSize: 14.0),
             )
           ],

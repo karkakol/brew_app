@@ -12,14 +12,11 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<Brew>>.value(
-      value: model.brews,
-      child: Scaffold(
-        backgroundColor: Colors.brown[50],
-        appBar: _buildAppBar(context),
-        body: _buildBody(context),
-        resizeToAvoidBottomInset: false,
-      ),
+    return Scaffold(
+      backgroundColor: Colors.brown[50],
+      appBar: _buildAppBar(context),
+      body: _buildBody(context),
+      resizeToAvoidBottomInset: false,
     );
   }
 
@@ -46,7 +43,7 @@ class HomeScreen extends StatelessWidget {
         FlatButton.icon(
           icon: Icon(Icons.person),
           onPressed: () async {
-            model.signOut;
+            model.signOut();
           },
           label: Text('logout'),
         ),

@@ -5,7 +5,6 @@ import 'package:brew_crew/shared/email_field.dart';
 import 'package:brew_crew/shared/prime_button.dart';
 import 'package:brew_crew/shared/password_field.dart';
 import 'package:flutter/material.dart';
-import 'package:brew_crew/shared/constant.dart';
 import 'package:brew_crew/shared/loading_widget.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -47,11 +46,14 @@ class SignInScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
       child: Form(
-        key: model.formKey,
         child: Column(
           children: [
-            EmailField(controller: model.email),
-            PasswordField(controller: model.password),
+            EmailField(
+              controller: model.email,
+              emailError: model.emailError,
+            ),
+            PasswordField(
+                controller: model.password, passwordError: model.passwordError),
             PrimeButton(onTap: model.login, text: 'login'),
             Text(
               model.error,

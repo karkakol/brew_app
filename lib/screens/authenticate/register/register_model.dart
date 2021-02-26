@@ -6,35 +6,49 @@ import 'package:injector/injector.dart';
 
 class RegisterModel {
   final Function register;
-  final GlobalKey formKey;
   final bool loading;
   final TextEditingController email;
   final TextEditingController password;
+  final String emailError;
   final String error;
+  final String passwordError;
 
   RegisterModel({
     this.register,
-    this.formKey,
     this.loading,
     this.email,
     this.password,
+    this.emailError,
+    this.passwordError,
     this.error,
   });
 }
 
 RegisterModel useRegisterModel() {
   final injector = Injector.appInstance;
-
   final email = useTextEditingController();
   final password = useTextEditingController();
+  final error = useState('');
+  final emailError = useState('');
+  final passwordError = useState('');
   final loading = useState<bool>(false);
-
-  final error = useState<String>('');
   final AuthService _auth = injector.get<AuthService>();
-  final formKey = GlobalKey<FormState>();
+
+  bool validation() {
+    bool isOk = true;
+    if (password.text.length < 6) {
+      passwordError.value = "password is too short bitch";
+      isOk = false;
+    }
+    if (!email.text.contains(new RegExp(r'[@.]'))) {
+      emailError.value = "wrong syntax in mail";
+      isOk = false;
+    }
+    return isOk;
+  }
 
   Future<void> register() async {
-    if (formKey.currentState.validate()) {
+    if (validation()) {
       loading.value = true;
       final result = await _auth.registerWithEmailAndPassword(
           email.value.text, password.value.text);
@@ -50,10 +64,10 @@ RegisterModel useRegisterModel() {
 
   return RegisterModel(
     register: register,
-    error: error.value,
+    passwordError: passwordError.value,
+    emailError: emailError.value,
     password: password,
     email: email,
-    formKey: formKey,
     loading: loading.value,
   );
 }

@@ -12,7 +12,7 @@ class _AuthenticateState extends State<Authenticate> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'some text',
-      initialRoute: '/',
+      initialRoute: '/register',
       routes: {
         '/': (context) => SignInCoordinator(),
         '/register': (context) => RegisterCoordinator()
