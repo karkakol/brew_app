@@ -1,13 +1,17 @@
 import 'package:brew_crew/shared/constant.dart';
 import 'package:flutter/material.dart';
 
-class PasswordField extends StatelessWidget {
+class BasicTextField extends StatelessWidget {
   final TextEditingController controller;
-  final String passwordError;
+  final String error;
+  final bool isObscure;
+  final String hintText;
 
-  PasswordField({
+  BasicTextField({
     this.controller,
-    this.passwordError,
+    this.error,
+    this.isObscure,
+    this.hintText
   });
 
   @override
@@ -18,11 +22,11 @@ class PasswordField extends StatelessWidget {
         children: [
           TextFormField(
             controller: controller,
-            decoration: textInputDecoration.copyWith(hintText: 'Password'),
-            obscureText: true,
+            decoration: textInputDecoration.copyWith(hintText: hintText),
+            obscureText: isObscure,
           ),
           Text(
-            passwordError ?? '',
+            error ?? '',
             style: TextStyle(
               color: Colors.red,
               fontSize: 14,

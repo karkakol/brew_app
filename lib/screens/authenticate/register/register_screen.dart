@@ -1,10 +1,9 @@
 import 'package:brew_crew/screens/authenticate/login/sign_in_coordinator.dart';
 import 'package:brew_crew/screens/authenticate/register/register_model.dart';
 import 'package:brew_crew/screens/navigator/slide_left_route.dart';
-import 'package:brew_crew/shared/email_field.dart';
 import 'package:brew_crew/shared/loading_widget.dart';
 import 'package:brew_crew/shared/prime_button.dart';
-import 'package:brew_crew/shared/password_field.dart';
+import 'package:brew_crew/shared/basic_text_field.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -49,9 +48,8 @@ class RegisterScreen extends StatelessWidget {
       child: Form(
         child: Column(
           children: [
-            EmailField(controller: model.email, emailError: model.emailError),
-            PasswordField(
-                controller: model.password, passwordError: model.passwordError),
+            _emailField(),
+            _passwordField(),
             PrimeButton(onTap: model.register, text: 'register'),
             Text(
               model.error ?? '',
@@ -62,4 +60,23 @@ class RegisterScreen extends StatelessWidget {
       ),
     );
   }
+
+  _emailField<Widget>(){
+    return BasicTextField(
+      controller: model.email,
+      error: model.emailError,
+      isObscure: false,
+      hintText: "email",
+    );
+  }
+
+  _passwordField<Widget>(){
+    return BasicTextField(
+      controller: model.password,
+      error: model.passwordError,
+      isObscure: true,
+      hintText: "Password",
+    );
+  }
+
 }

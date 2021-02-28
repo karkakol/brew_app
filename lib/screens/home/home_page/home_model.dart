@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:injector/injector.dart';
 
 class HomeModel {
-  final signOut;
+  final Function signOut;
 
   HomeModel({
     this.signOut,
