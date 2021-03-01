@@ -34,8 +34,8 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.brew_crew"
-        minSdkVersion 16
+        applicationId "com.kakol.brew_crew"
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -54,6 +54,11 @@ flutter {
     source '../..'
 }
 
+apply plugin: 'com.google.gms.google-services'
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation platform('com.google.firebase:firebase-bom:26.4.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
 }
+
